@@ -21,6 +21,8 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
         self.round_mc = False #quiz.round_mc
 
     def get_name(self):
+        names = []
+        self.name = self.user_text
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -40,12 +42,23 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
                     if event.key == pygame.K_RETURN:
                         print(self.user_text)
                         self.user_text = ''
+                        names.append(self.name)
+                        print(names)
+                        #loop break or keyup event?
                         self.round_name = False
                         self.round_mc = True
                     elif event.key == pygame.K_BACKSPACE:
                         self.user_text = self.user_text[:-1]
                     else:
                         self.user_text += event.unicode
+
+        for name in names:
+            with open(self.filename, 'a') as file_object:
+                file_object.write(name)
+                file_object.write(": ")
+                #file_object.write(str(score))
+                file_object.write("\n")
+                
         self.screen.fill((30, 30, 30))
                 # Render the current text.
         txt_surface = self.base_font.render(self.user_text, True, self.color_active)
