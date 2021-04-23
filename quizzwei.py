@@ -5,7 +5,7 @@ import sys
 from settings import Settings
 from button import Button
 from question2 import Question
-from multiple_choice import Multiple_Choice
+#from multiple_choice import Multiple_Choice
 from multiple_choice import Multiple_Choice2
 
 
@@ -49,6 +49,7 @@ class Quiz:
 
             if self.round_name:
                 self.question.get_name()
+                self.round_mc = True
                 print(self.round_mc)
 
             if self.round_mc:
