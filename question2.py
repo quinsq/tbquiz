@@ -35,7 +35,7 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
                 else:
                     self.active = False
                 # Change the current color of the input box.
-                self.color = self.color_active if self.active else self.color_passive
+               # self.color = self.color_active if self.active else self.color_passive
 
             if event.type == pygame.KEYDOWN:
                 if self.active:
