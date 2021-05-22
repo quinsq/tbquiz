@@ -2,6 +2,8 @@ import pygame
 
 import sys
 
+import logging
+
 from settings import Settings
 from button import Button
 from question2 import Question
@@ -49,10 +51,11 @@ class Quiz:
 
             if self.round_name:
                 self.question.get_name()
-                self.round_mc = True
-                print(self.round_mc)
+                if self.round_name == False:
+                    print('why')
 
             if self.round_mc:
+                print('self.round_mc')
                 self.mc.start()
                 self.mc.draw()
             pygame.display.flip()
