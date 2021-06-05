@@ -1,19 +1,15 @@
 import pygame
-from pygame.sprite import Sprite
 import sys
 
 class ImageButton():
 
     def __init__(self, quiz, image):
-        """initialise Button attributes."""
+        """initialise image button attributes."""
         self.screen = quiz.screen
         self.screen_rect = self.screen.get_rect()
 
         #set dimensions and properties of the images.
         self.width, self.height = 300, 300
-        #self.button_color = (130, 130, 130)
-        #self.text_color = ('lightskyblue3')
-        #self.font = pygame.font.SysFont(None, 48)
 
         #build images' rect object and position it.
         #self.img1_rect = pygame.Rect(0,200,self.width,self.height)
@@ -24,7 +20,7 @@ class ImageButton():
         self._prep_image()
 
     def _prep_image(self):
-        """turn message into a rendered image and center text on the button."""
+        """load and position images."""
         self.image1 = self.image.load('dandelion.jpg')
         self.image2 = self.image.load('dan2.jpg')
         self.img1_rect = self.image1.get_rect()
@@ -33,7 +29,7 @@ class ImageButton():
         self.img2_rect.center = (562.5, 350)
 
     def draw_images(self):
-        #draw blank button and then draw message.
+        #draw images on screen.
         self.screen.fill()
         self.screen.blit(self.image1, self.img1_rect)
         self.screen.blit(self.image2, self.img2_rect)
