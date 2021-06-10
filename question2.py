@@ -1,8 +1,6 @@
 import pygame
 import sys
 
-
-
 class Question:  #(stark inspiriert von https://stackoverflow.com/questions/46390231/how-can-i-create-a-text-input-box-with-pygame)
     """functions for every single question."""
 
@@ -16,9 +14,14 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
         #color = color_passive
         self.base_font = pygame.font.Font(None,32)
         self.user_text = ''
+        self.filename = 'results.txt'
         self.active = False
-        self.round_name = False #quiz.round_name
-        self.round_mc = False #quiz.round_mc
+
+        #self.next_round_rect = pygame.Rect(400,50,140,32)
+
+
+        self.round_name = quiz.round_name #WHY DOESN'T IT RECOGNIZE THE VARIABLES?
+        self.round_mc = quiz.round_mc
 
     def get_name(self):
         names = []
@@ -31,11 +34,11 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
                 # If the user clicked on the input_box rect.
                 if self.input_rect.collidepoint(event.pos):
                     # Toggle the active variable.
-                    self.active = not self.active
+                    self.active = True
                 else:
                     self.active = False
                 # Change the current color of the input box.
-               # self.color = self.color_active if self.active else self.color_passive
+                #self.color_active if self.active else self.color_passive
 
             if event.type == pygame.KEYDOWN:
                 if self.active:
@@ -45,8 +48,6 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
                         names.append(self.name)
                         print(names)
                         #loop break or keyup event?
-                        self.round_name = False
-                        self.round_mc = True
                     elif event.key == pygame.K_BACKSPACE:
                         self.user_text = self.user_text[:-1]
                     else:
@@ -58,9 +59,10 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
                 file_object.write(": ")
                 #file_object.write(str(score))
                 file_object.write("\n")
-                
+
+
         self.screen.fill((30, 30, 30))
-                # Render the current text.
+        # Render the current text.
         txt_surface = self.base_font.render(self.user_text, True, self.color_active)
         # Resize the box if the text is too long.
         self.width = max(200, txt_surface.get_width()+10)
