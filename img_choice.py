@@ -14,7 +14,7 @@ class Image:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if img1_rect.collidepoint(event.pos):#self.img1_clicked:
                     print('yay')#pass #return score
@@ -23,8 +23,11 @@ class Image:
                     print('eureka!')
                 #ImageButton.check_answer(event.pos)
 
-        self.screen.fill((0,0,0))
+        self.screen.fill((30,30,30))
         self.screen.blit(image1, img1_rect)
         self.screen.blit(image2, img2_rect)
-        pygame.display.update()
+#        pygame.display.update()
 
+
+#if __name__ == '__main__':
+    #main()

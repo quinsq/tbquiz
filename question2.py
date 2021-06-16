@@ -20,8 +20,8 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
         #self.next_round_rect = pygame.Rect(400,50,140,32)
 
 
-        self.round_name = quiz.round_name #WHY DOESN'T IT RECOGNIZE THE VARIABLES?
-        self.round_mc = quiz.round_mc
+        #self.round_name = quiz.round_name #WHY DOESN'T IT RECOGNIZE THE VARIABLES?
+        #self.round_mc = quiz.round_mc
 
     def get_name(self):
         names = []
@@ -72,4 +72,27 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
         # Blit the input_box rect.
         pygame.draw.rect(self.screen, self.color_active, self.input_rect, 2)
 
-        pygame.display.flip()
+        #pygame.display.flip()
+
+    #def next_round (self):
+
+        #for event in pygame.event.get():
+            #if event.type == pygame.QUIT:
+                #sys.exit()
+               # quiz.done == True
+            #if event.type == pygame.MOUSEBUTTONDOWN:
+                # If the user clicked on the input_box rect
+                        # If the user clicked on the input_box rect.
+                #if self.next_round_rect.collidepoint(event.pos):
+                    # Toggle the active variable.
+                    #print('!')
+                    #self.round_name = False
+                    #self.round_mc = True
+
+        #self.screen.fill((30, 30, 30))
+        #next_round_surface = self.base_font.render('onwards!', True, (0,0,00))
+
+        #self.screen.blit(next_round_surface, (self.next_round_rect.x,self.next_round_rect.y))
+        #pygame.draw.rect(self.screen,self.color_active,self.next_round_rect)
+
+        #pygame.display.flip()
