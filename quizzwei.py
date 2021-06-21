@@ -50,39 +50,43 @@ class Quiz:
 
         while True:
 
-            if not self.round_name or self.round_mc or self.round_img:
-                self._check_events()
-                self._update_screen()
+            #if not self.round_name or self.round_mc or self.round_img:
+            self.check_events()
+            self.update_screen()
 
             if self.round_name:
+                self.question.draw()
                 self.question.get_name()
-                self._next_round()
+
+                self.next_round()
                 #if self.round_name == False:
                     #print('why')
 
             if self.round_img:
                 self.image.__init__(self)
-                self._next_round()
+                self.next_round()
                 #self._update_screen()
 
             if self.round_mc:
-                print('self.round_mc')
-                self.mc.start()
+                #print('self.round_mc')
+                #self.mc.start()
                 self.mc.draw()
-                
+                self.mc.score_name()
+                self.next_round()
+
             pygame.display.flip()
 
             clock.tick(60)
 
-    def _check_events(self):
+    def check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos)
+                self.check_play_button(mouse_pos)
 
-    def _check_play_button(self, mouse_pos):
+    def check_play_button(self, mouse_pos):
         """start a new game when the player clicks play."""
 
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
@@ -92,7 +96,7 @@ class Quiz:
             self.round_img = False
             self.round_mc = False
 
-    def _next_round (self):
+    def next_round (self):
 
         self.next_round_rect = pygame.Rect(600,550,140,32)
         self.button_color = (130, 130, 130)
@@ -117,6 +121,12 @@ class Quiz:
                         self.round_name = False
                         self.round_img = False
                         self.round_mc = True
+                    elif self.round_mc:
+                        self.round_name = False
+                        self.round_img = False
+                        self.round_mc = False
+                        sys.exit()
+                        print('done!')
 
         self.screen.fill((30, 30, 30), self.next_round_rect)
         next_round_surface = self.base_font.render('onwards!', True, self.text_color, self.button_color)
@@ -126,13 +136,13 @@ class Quiz:
 
         #pygame.display.flip()
 
-    def _update_screen(self):
+    def update_screen(self):
         """update images on the screen, and flip to new screen."""
         #redraw screen during each pass through loop.
         self.screen.fill(self.settings.bg_color)
 
         #draw the play button if game is inactive.
-        if not self.round_name:
+        if not self.round_name or self.round_mc or self.round_img:
             self.play_button.draw_button()
 
         #make most recently drawn screen visible.

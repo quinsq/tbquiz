@@ -10,13 +10,15 @@ class NameChoice:
         self.settings = quiz.settings
         self.screen = quiz.screen
         pygame.freetype.init()
-        self.background = pygame.Surface((640, 480))
-        self.background.fill(pygame.Color('lightgrey'))
+        #self.background = pygame.Surface((640, 480))
+        #self.background.fill(pygame.Color('lightgrey'))
         self.FONT = pygame.freetype.SysFont(None, 32)
 
-        self.FONT.render_to(self.background, (120,50), 'Select your difficulty level', pygame.Color('black'))
-        self.FONT.render_to(self.background, (119,49), 'Select your difficulty level', pygame.Color('white'))
-
+        #self.FONT.render_to(self.screen, (120,50), 'which name do you like best?', pygame.Color('black'))
+        #self.FONT.render_to(self.screen, (119,49), 'which name do you like best?', pygame.Color('white'))
+        self.rect1 =  pygame.Rect(120, 120, 80, 300)
+        self.rect2 =  pygame.Rect(120, 220, 80, 300)
+        self.rect3 =  pygame.Rect(120, 320, 80, 300)
         self.rects = []
         x = 120
         y = 120
@@ -35,7 +37,10 @@ class NameChoice:
         pass
 
     def draw(self):
-        self.screen.blit(self.background, (0,0))
+        self.FONT.render_to(self.screen, (120,50), 'which name do you like best?', pygame.Color('black'))
+        self.FONT.render_to(self.screen, (119,49), 'which name do you like best?', pygame.Color('white'))
+        self.screen.blit(self.screen, (0,0))
+        self.score = 0
         n = 1
         i=0
         for rect in self.rects:
@@ -45,8 +50,34 @@ class NameChoice:
             self.FONT.render_to(self.screen, (rect.x+30, rect.y+30), str(self.names[i]), pygame.Color('black'))
             self.FONT.render_to(self.screen, (rect.x+29, rect.y+29), str(self.names[i]), pygame.Color('white'))
             #self.name[i] += 1
-            if rect.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(self.screen, pygame.Color('darkgrey'), rect)
             i+=1
 
             n += 1
+
+    def score_name(self):
+
+
+        for event in pygame.event.get():
+            #for rect in self.rects:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.rect1.collidepoint(event.pos):
+                #if rect.collidepoint(event.pos):
+
+                    #if rect == self.rects[0]:
+                    self.score == 1
+                    print("rect1", self.score)
+
+                elif self.rect2.collidepoint(event.pos):
+
+                    #elif rect == self.rects[1]:
+                    self.score == 2
+                    print("rect2", self.score)
+
+                elif self.rect3.collidepoint(event.pos):
+                    #elif rect == self.rects[2]:
+                    self.score == 3
+                    print("rect3", self.score)
+
+                print(self.score)
+                        #print(self.rects)
+                        #pygame.draw.rect(self.screen, pygame.Color('darkgrey'), self.rects[i])

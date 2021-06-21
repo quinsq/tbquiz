@@ -1,5 +1,6 @@
 import pygame
 import sys
+import pygame.freetype
 
 class Question:  #(stark inspiriert von https://stackoverflow.com/questions/46390231/how-can-i-create-a-text-input-box-with-pygame)
     """functions for every single question."""
@@ -8,7 +9,7 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
         self.settings = quiz.settings
         self.screen = quiz.screen
 
-        self.input_rect = pygame.Rect(50,50,140,32)
+        self.input_rect = pygame.Rect(50,300,140,32)
         self.color_active = pygame.Color('lightskyblue3')
         self.color_passive = pygame.Color('dodgerblue2')
         #color = color_passive
@@ -16,6 +17,10 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
         self.user_text = ''
         self.filename = 'results.txt'
         self.active = False
+        pygame.freetype.init()
+        #self.background = pygame.Surface((640, 480))
+        #self.background.fill(pygame.Color('lightgrey'))
+        self.FONT = pygame.freetype.SysFont(None, 32)
 
         #self.next_round_rect = pygame.Rect(400,50,140,32)
 
@@ -26,27 +31,33 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
     def get_name(self):
         names = []
         self.name = self.user_text
+        self.score = 0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-               # quiz.done == True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # If the user clicked on the input_box rect.
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                print('click')
                 if self.input_rect.collidepoint(event.pos):
-                    # Toggle the active variable.
                     self.active = True
+                    print('active!')
                 else:
                     self.active = False
                 # Change the current color of the input box.
                 #self.color_active if self.active else self.color_passive
-
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
                 if self.active:
                     if event.key == pygame.K_RETURN:
                         print(self.user_text)
                         self.user_text = ''
                         names.append(self.name)
                         print(names)
+                        if self.name == self.name.lower():
+                                self.score -= 1
+                        elif self.name == self.name.title():
+                                self.score == self.score
+                        elif self.name == self.name.upper():
+                                self.score += 1
+                        print(self.score)
                         #loop break or keyup event?
                     elif event.key == pygame.K_BACKSPACE:
                         self.user_text = self.user_text[:-1]
@@ -61,7 +72,10 @@ class Question:  #(stark inspiriert von https://stackoverflow.com/questions/4639
                 file_object.write("\n")
 
 
+    def draw(self):
         self.screen.fill((30, 30, 30))
+        self.FONT.render_to(self.screen, (120,50), 'enter your name and press enter :)', pygame.Color('black'))
+        self.FONT.render_to(self.screen, (119,49), 'enter your name and press enter :)', pygame.Color('white'))
         # Render the current text.
         txt_surface = self.base_font.render(self.user_text, True, self.color_active)
         # Resize the box if the text is too long.
